@@ -5,7 +5,6 @@ var glob = require('glob')
 var YAML = require('js-yaml')
 var _ = require('lodash')
 var jsonschema = require('jsonschema')
-//error handling here
 var fieldSchema = require(path.join(process.cwd(), 'schema/field.json'))
 var presetSchema = require(path.join(process.cwd(), 'schema/preset.json'))
 var tar = require('tar-stream')

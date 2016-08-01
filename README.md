@@ -39,4 +39,4 @@ Run with the command `mapeo-presets-builder` (or `./node_modules/.bin/mapeo-pres
 
 ## Development Status
 
-Not stable. Mapeo Desktop still needs to be given the capacity to open .mapeopresets files.
+Not stable--needs better error-handling and testing. Mapeo Desktop also still needs to be given the capacity to open .mapeopresets files.
