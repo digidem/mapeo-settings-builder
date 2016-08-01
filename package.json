@@ -1,0 +1,26 @@
+{
+  "name": "mapeo-presets-builder",
+  "version": "0.0.2",
+  "description": "Builds presets and sprites for the Mapeo Desktop app",
+  "main": "index.js",
+  "bin": "./bin/mapeo-presets-builder.js",
+  "dependencies": {
+    "fs-extra": "^0.30.0",
+    "glob": "^7.0.3",
+    "js-yaml": "^3.5.4",
+    "jsonschema": "^1.1.0",
+    "lodash": "^4.6.1",
+    "mkdirp": "^0.5.1",
+    "svgo": "^0.6.6",
+    "queue-async": "^1.0.7",
+    "json-stable-stringify": "^1.0.1",
+    "spritezero": "^3.6.0",
+    "tar-stream": "^1.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "build": "mapeo-presets-builder"
+  },
+  "author": "Gregor MacLennan",
+  "license": "ISC"
+}
