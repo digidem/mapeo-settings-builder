@@ -34,7 +34,7 @@ Mapeo Presets Builder expects to be run from within a very specific file structu
 * imagery.json
 * region.css (used to be wao.css)
 
-When run with the command `mapeo-presets-builder` (or `./node_modules/.bin/mapeo-presets-builder` if it is not correctly exported into your path), this module creates a build folder with a `presets.mapeopresets` file. `presets.mapeopresets` is a tarball that can be unzipped or opened with Mapeo Desktop.
+Run with the command `mapeo-presets-builder` (or `./node_modules/.bin/mapeo-presets-builder` if it is not correctly exported into your path) to create a `presets.mapeopresets` file within the build folder. `presets.mapeopresets` is a tarball that can be unzipped or opened with Mapeo Desktop.
 
 
 ## Development Status
