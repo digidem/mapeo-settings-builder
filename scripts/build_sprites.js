@@ -2,13 +2,10 @@ var spritezero = require('spritezero')
 var fs = require('fs')
 var queue = require('queue-async')
 var path = require('path')
-var stringify = require('json-stable-stringify')
 
-
-exports.genSprites = function genSprites(err, input, spriteFile, cb) {
-
+exports.genSprites = function genSprites (err, input, spriteFile, cb) {
   if (err) return cb(err)
- 
+
   function filepaths (dir) {
     return fs.readdirSync(dir)
       .filter(function (d) {
@@ -46,7 +43,7 @@ exports.genSprites = function genSprites(err, input, spriteFile, cb) {
     var pending = 2
     function saveCSS (err, formattedLayout) {
       if (err) return cb(err)
-      var icon = spriteFile.replace(/^.*(\\|\/|\:)/, '')
+      var icon = spriteFile.replace(/^.*(\\|\/|:)/, '')
       var spriteCss = Object.keys(formattedLayout).reduce(function (p, s) {
         var d = formattedLayout[s]
         var css = `.${s} {
@@ -58,9 +55,9 @@ exports.genSprites = function genSprites(err, input, spriteFile, cb) {
         return (p + css + '\n\n')
       }, '')
       fs.writeFile(spriteFile + '.css', spriteCss, function (err) {
-          if (err) return cb(err)
-          done()
-        })
+        if (err) return cb(err)
+        done()
+      })
     }
 
     function saveImage (err, layout) {
@@ -75,11 +72,10 @@ exports.genSprites = function genSprites(err, input, spriteFile, cb) {
     }
 
     function done () {
-      if (--pending == 0) {
+      if (--pending === 0) {
         return cb(null)
       }
     }
-
 
     var genLayout = spritezero.generateLayout
     genLayout(buffers, ratio, true, saveCSS)
