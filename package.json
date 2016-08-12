@@ -1,6 +1,6 @@
 {
   "name": "mapeo-presets-builder",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Builds presets and sprites for the Mapeo Desktop app",
   "main": "index.js",
   "bin": "./bin/mapeo-presets-builder.js",
