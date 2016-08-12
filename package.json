@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/McKaneAndrus/mapeo-presets-builder.git"
+    "url": "git+https://github.com/digidem/mapeo-presets-builder.git"
   },
   "author": "Gregor MacLennan",
   "license": "ISC"
