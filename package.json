@@ -1,19 +1,21 @@
 {
-  "name": "mapeo-presets-builder",
-  "version": "0.1.1",
+  "name": "mapeo-settings-builder",
+  "version": "1.0.0",
   "description": "Builds presets and sprites for the Mapeo Desktop app",
   "main": "index.js",
-  "bin": "./bin/mapeo-presets-builder.js",
+  "bin": {
+    "mapeo-settings": "bin/mapeo-settings-builder.js"
+  },
+  "engines": {
+    "node" : "^4.4.0"
+  },
   "dependencies": {
-    "fs-extra": "^0.30.0",
+    "fs-exists-sync": "^0.1.0",
     "glob": "^7.0.3",
-    "js-yaml": "^3.5.4",
-    "jsonschema": "^1.1.0",
-    "lodash": "^4.6.1",
-    "mkdirp": "^0.5.1",
-    "svgo": "^0.6.6",
-    "queue-async": "^1.0.7",
-    "json-stable-stringify": "^1.0.1",
+    "id-presets-builder": "^1.1.0",
+    "minimist": "^1.2.0",
+    "run-parallel": "^1.1.6",
+    "slug": "^0.9.1",
     "spritezero": "^3.6.0",
     "tar-stream": "^1.5.2"
   },
@@ -21,12 +23,15 @@
     "standard": "^7.1.2"
   },
   "scripts": {
-    "build": "mapeo-presets-builder"
+    "build": "mapeo-settings-builder"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digidem/mapeo-presets-builder.git"
+    "url": "git+https://github.com/digidem/mapeo-settings-builder.git"
   },
-  "author": "Gregor MacLennan",
-  "license": "ISC"
+  "contributors": [
+    "Gregor MacLennan",
+    "McKane Andrus"
+  ],
+  "license": "MIT"
 }
