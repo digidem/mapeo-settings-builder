@@ -6,6 +6,8 @@ var run = require('run-parallel')
 var presetsBuilder = require('id-presets-builder')
 var tar = require('tar-stream')
 var exists = require('fs-exists-sync')
+var jsonschema = require('jsonschema')
+var imagerySchema = require('../schema/imagery.json')
 
 var argv = require('minimist')(process.argv.slice(2), {
   default: {
@@ -39,6 +41,17 @@ run([
   if (err) return done(err)
   var presets = results[0]
   var sprite = results[1]
+  if (exists(imageryFile)) {
+    try {
+      var imagery = fs.readFileSync(imageryFile)
+      var imageryObj = JSON.parse(imagery.toString())
+    } catch (e) {
+      done(e)
+    }
+    if (!validate(imageryFile, imageryObj, imagerySchema)) {
+      return done(new Error(imageryFile + ': Imagery structure is invalid'))
+    }
+  }
 
   var translationsLocale = presetsBuilder.generateTranslations(
     presets.categories,
@@ -58,8 +71,8 @@ run([
     pack.entry({ name: 'icons.css' }, sprite.css)
     pack.entry({ name: 'icons.png' }, sprite.png)
   }
-  if (exists(imageryFile)) {
-    pack.entry({ name: 'imagery.json' }, fs.readFileSync(imageryFile))
+  if (imagery) {
+    pack.entry({ name: 'imagery.json' }, imagery)
   }
   if (exists(styleFile)) {
     pack.entry({ name: 'style.css' }, fs.readFileSync(styleFile))
@@ -77,4 +90,18 @@ function done (err) {
   if (!err) return
   console.error(err.stack)
   process.exit(1)
+}
+
+function validate (filename, instance, schema) {
+  var errors = jsonschema.validate(instance, schema).errors
+  if (!errors.length) return true
+  console.error(filename + ': ')
+  errors.forEach(function (error) {
+    if (error.property) {
+      console.error(error.property + ' ' + error.message)
+    } else {
+      console.error(error)
+    }
+  })
+  return false
 }
