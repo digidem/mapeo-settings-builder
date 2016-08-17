@@ -7,16 +7,17 @@
     "mapeo-settings": "bin/mapeo-settings-builder.js"
   },
   "engines": {
-    "node" : "^4.4.0"
+    "node": "^4.4.0"
   },
   "dependencies": {
     "fs-exists-sync": "^0.1.0",
     "glob": "^7.0.3",
     "id-presets-builder": "^1.1.0",
+    "jsonschema": "^1.1.0",
     "minimist": "^1.2.0",
     "run-parallel": "^1.1.6",
     "slug": "^0.9.1",
-    "spritezero": "^3.6.0",
+    "svg-sprite": "^1.3.5",
     "tar-stream": "^1.5.2"
   },
   "devDependencies": {

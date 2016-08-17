@@ -1,21 +1,10 @@
-var spritezero = require('spritezero')
+var SVGSpriter = require('svg-sprite')
 var glob = require('glob')
 var fs = require('fs')
 var path = require('path')
 var run = require('run-parallel')
 var slug = require('slug')
 slug.defaults.mode = 'rfc3986'
-
-var PIXEL_RATIO = 1
-
-function loadSvg (file, cb) {
-  fs.readFile(file, function (err, buf) {
-    cb(err, {
-      svg: buf,
-      id: slug(path.basename(file, '.svg'))
-    })
-  })
-}
 
 /**
  * Searches `dir` for svg files and returns a css file and png sprite.
@@ -28,45 +17,34 @@ module.exports = function generateSprite (dir, cb) {
     console.warn('Warning: no icons found in folder %s', dir)
     return cb()
   }
+
+  var spriter = new SVGSpriter({
+    mode: {symbol: true},
+    shape: {id: {generator: idGenerator}}
+  })
   var tasks = filepaths.map(function (filepath) {
-    return loadSvg.bind(null, path.join(dir, filepath))
+    filepath = path.join(dir, filepath)
+    return function (cb) {
+      fs.readFile(filepath, 'utf8', function (err, data) {
+        if (err) return cb(err)
+        spriter.add(filepath, path.basename(filepath), data)
+        cb()
+      })
+    }
   })
 
   run(tasks, function (err, imgs) {
     if (err) return cb(err)
-    generateCss(imgs, function (err, css) {
+    spriter.compile(function (err, result) {
       if (err) return cb(err)
-      generatePng(imgs, function (err, png) {
-        if (err) return cb(err)
-        cb(null, {
-          css: css,
-          png: png
-        })
-      })
+      cb(null, result.symbol.sprite.contents)
     })
   })
 }
 
-function generateCss (imgs, cb) {
-  spritezero.generateLayout(imgs, PIXEL_RATIO, true, function (err, layout) {
-    if (err) return cb(err)
-    var css = ''
-    for (var id in layout) {
-      // NB: Do we need to have option to configure sprite name?
-      css += '.' + id + ' {\n' +
-        '  background-image: url(icons.png);\n' +
-        '  background-position: -' + layout[id].x + 'px -' + layout[id].y + 'px;\n' +
-        '  width: ' + layout[id].width + 'px;\n' +
-        '  height: ' + layout[id].height + 'px;\n' +
-        '}\n\n'
-    }
-    cb(null, css)
-  })
-}
-
-function generatePng (imgs, cb) {
-  spritezero.generateLayout(imgs, PIXEL_RATIO, false, function (err, layout) {
-    if (err) return cb(err)
-    spritezero.generateImage(layout, cb)
-  })
+function idGenerator (name) {
+  return name
+    .replace(/\.svg$/, '')
+    .replace(/-24px$/, '-12')
+    .replace(/-100px$/, '')
 }

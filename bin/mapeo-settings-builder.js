@@ -68,8 +68,7 @@ run([
   pack.entry({ name: 'presets.json' }, stringify(presets))
   pack.entry({ name: 'translations.json' }, stringify(translations))
   if (sprite) {
-    pack.entry({ name: 'icons.css' }, sprite.css)
-    pack.entry({ name: 'icons.png' }, sprite.png)
+    pack.entry({ name: 'icons.svg' }, sprite)
   }
   if (imagery) {
     pack.entry({ name: 'imagery.json' }, imagery)
