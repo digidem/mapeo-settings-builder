@@ -34,8 +34,12 @@ var iconDir = path.join(cwd, 'icons')
 var imageryFile = path.join(cwd, 'imagery.json')
 var styleFile = path.join(cwd, 'style.css')
 
+var opts = {
+  additionalProperties: true
+}
+
 run([
-  presetsBuilder.generatePresets.bind(null, cwd),
+  presetsBuilder.generatePresets.bind(null, cwd, opts),
   generateSprite.bind(null, iconDir)
 ], function (err, results) {
   if (err) return done(err)

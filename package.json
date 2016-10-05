@@ -12,7 +12,7 @@
   "dependencies": {
     "fs-exists-sync": "^0.1.0",
     "glob": "^7.0.3",
-    "id-presets-builder": "^1.1.0",
+    "id-presets-builder": "^1.2.0",
     "jsonschema": "^1.1.0",
     "minimist": "^1.2.0",
     "run-parallel": "^1.1.6",
