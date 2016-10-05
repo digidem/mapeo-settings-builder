@@ -21,6 +21,7 @@ var argv = require('minimist')(process.argv.slice(2), {
 var cmd = argv._[0] || 'build'
 
 var generateSprite = require('../scripts/build_sprite')
+var checkIcons = require('../scripts/check_icons')
 
 var VALID_COMMANDS = ['build', 'lint']
 
@@ -64,6 +65,12 @@ run([
   )
   var translations = {}
   translations[argv.lang] = {presets: translationsLocale}
+
+  try {
+    checkIcons(presets.presets, iconDir)
+  } catch (e) {
+    done(e)
+  }
 
   if (cmd === 'lint') return console.log('Presets are valid')
 
