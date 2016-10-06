@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.2.0] - 2016-10-06
+### Added
+- Include a layers.json file in settings package that defines layers for vector tiles.
+
 ## [2.1.0] - 2016-10-05
 ### Changed
 - Check icons referenced by presets exist in icons folder, if not throw error
