@@ -35,6 +35,7 @@ var iconDir = path.join(cwd, 'icons')
 var imageryFile = path.join(cwd, 'imagery.json')
 var styleFile = path.join(cwd, 'style.css')
 var layersFile = path.join(cwd, 'layers.json')
+var metadataFile = path.join(cwd, 'metadata.json')
 
 var opts = {
   additionalProperties: true
@@ -90,6 +91,9 @@ run([
   }
   if (exists(layersFile)) {
     pack.entry({ name: 'layers.json' }, fs.readFileSync(layersFile))
+  }
+  if (exists(metadataFile)) {
+    pack.entry({ name: 'metadata.json' }, fs.readFileSync(metadataFile))
   }
   pack.finalize()
   var outputStream = argv.o ? fs.createWriteStream(argv.o) : process.stdout

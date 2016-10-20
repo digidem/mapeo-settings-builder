@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.0] - 2016-10-06
+### Added
+- Include a metadata.json file in settings package that defines the user's
+  dataset preference for synchronization.
+
 ## [2.2.0] - 2016-10-06
 ### Added
 - Include a layers.json file in settings package that defines layers for vector tiles.
