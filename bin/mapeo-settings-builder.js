@@ -20,7 +20,8 @@ var argv = require('minimist')(process.argv.slice(2), {
 })
 var cmd = argv._[0] || 'build'
 
-var generateSprite = require('../scripts/build_sprite')
+var buildSVGSprite = require('../scripts/build_svg_sprite')
+var buildPNGSprite = require('../scripts/build_png_sprite')
 var checkIcons = require('../scripts/check_icons')
 
 var VALID_COMMANDS = ['build', 'lint']
@@ -43,11 +44,14 @@ var opts = {
 
 run([
   presetsBuilder.generatePresets.bind(null, cwd, opts),
-  generateSprite.bind(null, iconDir)
+  buildSVGSprite.bind(null, iconDir),
+  buildPNGSprite.bind(null, iconDir)
 ], function (err, results) {
   if (err) return done(err)
   var presets = results[0]
-  var sprite = results[1]
+  var svgSprite = results[1]
+  var pngSprite = results[2].png
+  var pngLayout = results[2].layout
   if (exists(imageryFile)) {
     try {
       var imagery = fs.readFileSync(imageryFile)
@@ -80,8 +84,12 @@ run([
   pack.on('error', done)
   pack.entry({ name: 'presets.json' }, stringify(presets))
   pack.entry({ name: 'translations.json' }, stringify(translations))
-  if (sprite) {
-    pack.entry({ name: 'icons.svg' }, sprite)
+  if (svgSprite) {
+    pack.entry({ name: 'icons.svg' }, svgSprite)
+  }
+  if (pngSprite) {
+    pack.entry({ name: 'icons.png ' }, pngSprite)
+    pack.entry({ name: 'icons.json' }, JSON.stringify(pngLayout, null, 2))
   }
   if (imagery) {
     pack.entry({ name: 'imagery.json' }, imagery)

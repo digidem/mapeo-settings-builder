@@ -9,9 +9,9 @@ slug.defaults.mode = 'rfc3986'
 /**
  * Searches `dir` for svg files and returns a css file and png sprite.
  * @param {string}   dir Directory to search for svgs
- * @param {Function} cb  cb(error, {css: <string>, png: <buffer>})
+ * @param {Function} cb  cb(error, svg<buffer>)
  */
-module.exports = function generateSprite (dir, cb) {
+module.exports = function buildSVGSprite (dir, cb) {
   var filepaths = glob.sync('*.svg', {cwd: dir})
   if (!filepaths.length) {
     console.warn('Warning: no icons found in folder %s', dir)
