@@ -11,15 +11,15 @@
   },
   "dependencies": {
     "fs-exists-sync": "^0.1.0",
-    "glob": "^7.0.3",
-    "id-presets-builder": "^1.2.0",
-    "jsonschema": "^1.1.0",
+    "glob": "^7.1.3",
+    "id-presets-builder": "^1.2.4",
+    "jsonschema": "^1.2.4",
     "maki": "^0.5.0",
     "minimist": "^1.2.0",
-    "run-parallel": "^1.1.6",
+    "run-parallel": "^1.1.9",
     "slug": "^0.9.1",
-    "svg-sprite": "^1.3.5",
-    "tar-stream": "^1.5.2"
+    "svg-sprite": "^1.5.0",
+    "tar-stream": "^1.6.2"
   },
   "devDependencies": {
     "standard": "^7.1.2"
