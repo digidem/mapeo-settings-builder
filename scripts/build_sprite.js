@@ -3,8 +3,6 @@ var glob = require('glob')
 var fs = require('fs')
 var path = require('path')
 var run = require('run-parallel')
-var slug = require('slug')
-slug.defaults.mode = 'rfc3986'
 
 /**
  * Searches `dir` for svg files and returns a css file and png sprite.
