@@ -3,10 +3,10 @@ var path = require('path')
 
 module.exports = function checkIcons (presets, iconDir) {
   var makiIconPath = path.dirname(require.resolve('maki/src/aerialway-12.svg'))
-  var makiIcons = glob.sync('*-12.svg', {cwd: makiIconPath}).map(filename => {
+  var makiIcons = glob.sync('*-12.svg', { cwd: makiIconPath }).map(filename => {
     return filename.replace('-12.svg', '')
   })
-  var iconNames = glob.sync('*.svg', {cwd: iconDir}).map(filename => {
+  var iconNames = glob.sync('*.svg', { cwd: iconDir }).map(filename => {
     return filename.replace(/-\d+px\.svg$/, '')
   })
   var missing = []

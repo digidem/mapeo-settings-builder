@@ -10,15 +10,15 @@ var run = require('run-parallel')
  * @param {Function} cb  cb(error, svg<buffer>)
  */
 module.exports = function buildSVGSprite (dir, cb) {
-  var filepaths = glob.sync('*.svg', {cwd: dir})
+  var filepaths = glob.sync('*.svg', { cwd: dir })
   if (!filepaths.length) {
     console.warn('Warning: no icons found in folder %s', dir)
     return cb()
   }
 
   var spriter = new SVGSpriter({
-    mode: {symbol: true},
-    shape: {id: {generator: idGenerator}}
+    mode: { symbol: true },
+    shape: { id: { generator: idGenerator } }
   })
   var tasks = filepaths.map(function (filepath) {
     filepath = path.join(dir, filepath)

@@ -1,7 +1,7 @@
 var spritezero = require('@mapbox/spritezero')
 var fs = require('fs')
 var glob = require('glob')
-var path = require('path');
+var path = require('path')
 var parallel = require('run-parallel')
 
 var resizeSvg = require('./resize_svg')
@@ -22,7 +22,7 @@ function createResizeTask (filepath) {
 }
 
 module.exports = function buildPNGSprite (dir, cb) {
-  const svgFiles = glob.sync('*-100px.svg', {cwd: dir})
+  const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 
   parallel(svgFiles.map(function (file) {
@@ -43,8 +43,8 @@ module.exports = function buildPNGSprite (dir, cb) {
       done(err)
     })
 
-      // Pass `false` in the layout parameter to generate an image layout
-      // suitable for exporting to a PNG sprite image file.
+    // Pass `false` in the layout parameter to generate an image layout
+    // suitable for exporting to a PNG sprite image file.
     spritezero.generateLayout({ imgs: imgs, pixelRatio: 1, format: false }, function (err, imageLayout) {
       if (err) return done(err)
       spritezero.generateImage(imageLayout, function (err, image) {
@@ -57,7 +57,7 @@ module.exports = function buildPNGSprite (dir, cb) {
       if (err) errs.push(err)
       if (--pending > 0) return
       console.log('errors', errs, pending)
-      cb(errs[0], {png: png, layout: layout})
+      cb(errs[0], { png: png, layout: layout })
     }
   }
 }

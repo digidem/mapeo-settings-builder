@@ -70,7 +70,7 @@ run([
     presets.presets
   )
   var translations = {}
-  translations[argv.lang] = {presets: translationsLocale}
+  translations[argv.lang] = { presets: translationsLocale }
 
   try {
     checkIcons(presets.presets, iconDir)
