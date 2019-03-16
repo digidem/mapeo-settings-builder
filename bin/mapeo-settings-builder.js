@@ -88,7 +88,7 @@ run([
     pack.entry({ name: 'icons.svg' }, svgSprite)
   }
   if (pngSprite) {
-    pack.entry({ name: 'icons.png ' }, pngSprite)
+    pack.entry({ name: 'icons.png' }, pngSprite)
     pack.entry({ name: 'icons.json' }, JSON.stringify(pngLayout, null, 2))
   }
   if (imagery) {
