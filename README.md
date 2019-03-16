@@ -25,8 +25,6 @@ When run in a folder of presets, icon files and imagery definitions will create 
 npm install --global mapeo-presets-builder
 ```
 
-Requires node v4 — node v6 support pending [node-mapnik/#634](https://github.com/mapnik/node-mapnik/issues/634#issuecomment-239231520)
-
 ## Usage
 
 ```sh
