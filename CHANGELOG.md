@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.6.0] - 2019-03-15
+### Added
+- Include version in settings tarball as `VERSION` file
+
 ## [2.5.0] - 2019-03-15
 ### Added
 - Export PNG sprites @100px

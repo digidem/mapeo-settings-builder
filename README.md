@@ -79,7 +79,6 @@ Where:
 - `-l, --lang=<langCode>` - the base language of the settings, defaults to `en`.
 - `-o, --output=<filename>` - write the settings tarball to this file, if unspecified prints to stdout.
 
-
 ## Contribute
 
 PRs accepted.

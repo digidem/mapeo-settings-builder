@@ -103,6 +103,7 @@ run([
   if (exists(metadataFile)) {
     pack.entry({ name: 'metadata.json' }, fs.readFileSync(metadataFile))
   }
+  pack.entry({ name: 'VERSION' }, require('../package.json').version)
   pack.finalize()
   var outputStream = argv.o ? fs.createWriteStream(argv.o) : process.stdout
   pack.pipe(outputStream)
