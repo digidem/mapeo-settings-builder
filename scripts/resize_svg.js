@@ -1,6 +1,10 @@
 const xml2js = require('xml2js')
 
-const parser = new xml2js.Parser()
+const parser = new xml2js.Parser({
+  strict: false,
+  normalizeTags: true,
+  attrNameProcessors: [ xml2js.processors.normalize ]
+})
 const builder = new xml2js.Builder()
 
 module.exports = function (svg, size, cb) {
@@ -11,7 +15,7 @@ module.exports = function (svg, size, cb) {
   }
   parser.parseString(svg, function (err, result) {
     if (err) return cb(err)
-    let viewBox = result.svg.$.viewBox
+    let viewBox = result.svg.$.viewbox
     if (viewBox === undefined) {
       if (result.svg.$.width !== undefined && result.svg.$.height !== undefined) {
         viewBox = `0 0 ${result.svg.$.width} ${result.svg.$.height}`
