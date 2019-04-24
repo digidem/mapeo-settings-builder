@@ -22,6 +22,7 @@ var cmd = argv._[0] || 'build'
 
 var buildSVGSprite = require('../scripts/build_svg_sprite')
 var buildPNGSprite = require('../scripts/build_png_sprite')
+var buildPNGIcons = require('../scripts/build_png_icons')
 var checkIcons = require('../scripts/check_icons')
 
 var VALID_COMMANDS = ['build', 'lint']
@@ -45,13 +46,16 @@ var opts = {
 run([
   presetsBuilder.generatePresets.bind(null, cwd, opts),
   buildSVGSprite.bind(null, iconDir),
-  buildPNGSprite.bind(null, iconDir)
+  buildPNGSprite.bind(null, iconDir),
+  buildPNGIcons.bind(null, iconDir)
 ], function (err, results) {
   if (err) return done(err)
   var presets = results[0]
   var svgSprite = results[1]
   var pngSprite = results[2].png
   var pngLayout = results[2].layout
+  var pngIcons = results[3]
+
   if (exists(imageryFile)) {
     try {
       var imagery = fs.readFileSync(imageryFile)
@@ -85,11 +89,11 @@ run([
   pack.entry({ name: 'presets.json' }, stringify(presets))
   pack.entry({ name: 'translations.json' }, stringify(translations))
   if (svgSprite) {
-    pack.entry({ name: 'icons.svg' }, svgSprite)
+    pack.entry({ name: 'sprite.svg' }, svgSprite)
   }
   if (pngSprite) {
-    pack.entry({ name: 'icons.png' }, pngSprite)
-    pack.entry({ name: 'icons.json' }, JSON.stringify(pngLayout, null, 2))
+    pack.entry({ name: 'sprite.png' }, pngSprite)
+    pack.entry({ name: 'sprite.json' }, JSON.stringify(pngLayout, null, 2))
   }
   if (imagery) {
     pack.entry({ name: 'imagery.json' }, imagery)
@@ -102,6 +106,11 @@ run([
   }
   if (exists(metadataFile)) {
     pack.entry({ name: 'metadata.json' }, fs.readFileSync(metadataFile))
+  }
+  if (pngIcons) {
+    pngIcons.forEach(icon => {
+      pack.entry({ name: `icons/${icon.filename}` }, icon.png)
+    })
   }
   pack.entry({ name: 'VERSION' }, require('../package.json').version)
   pack.finalize()
