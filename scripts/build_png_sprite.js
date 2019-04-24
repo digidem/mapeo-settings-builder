@@ -11,7 +11,7 @@ function createResizeTask (filepath) {
     fs.readFile(filepath, function (err, buf) {
       if (err) return cb(err)
       resizeSvg(buf, 100, function (err, resizedSvg) {
-        if (err) return cb(err)
+        if (err) return cb(new Error('Error trying to parse ' + filepath + '\n' + err.message))
         cb(null, {
           svg: Buffer.from(resizedSvg),
           id: path.basename(filepath).replace('.svg', '')
