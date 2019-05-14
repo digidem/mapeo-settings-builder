@@ -10,7 +10,7 @@
 
 > Build settings file for [Mapeo Desktop](https://github.com/digidem/mapeo-desktop)
 
-When run in a folder of presets, icon files and imagery definitions will create a single settings tarball which can be imported into [Mapeo Desktop](https://github.com/digidem/mapeo-desktop) to configure the application for a particular use-case.
+When run in a folder of configuration, icon files and imagery definitions will create a single settings tarball which can be imported into [Mapeo Desktop](https://github.com/digidem/mapeo-desktop) to configure the application for a particular use-case.
 
 ## Table of Contents
 
@@ -22,7 +22,7 @@ When run in a folder of presets, icon files and imagery definitions will create 
 ## Install
 
 ```
-npm install --global mapeo-presets-builder
+npm install --global mapeo-settings-builder
 ```
 
 ## Usage
