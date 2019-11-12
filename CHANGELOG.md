@@ -1,6 +1,13 @@
-# Change Log
-All notable changes to this project will be documented in this file.
-This project adheres to [Semantic Versioning](http://semver.org/).
+# Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [2.9.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.8.0...v2.9.0) (2019-11-12)
+
+
+### Features
+
+* Add select_multiple support ([4874d0f](https://github.com/digidem/mapeo-settings-builder/commit/4874d0f13297f849fb3ae53c2453ae439efa34c4))
 
 ## [2.6.0] - 2019-03-15
 ### Added
