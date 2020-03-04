@@ -21,7 +21,6 @@ Object.keys(SIZES).forEach(size =>
 )
 
 module.exports = function buildPngIcons (dir, cb) {
-  const start = Date.now()
   const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 
@@ -46,9 +45,6 @@ module.exports = function buildPngIcons (dir, cb) {
     .then(results => {
       const flattenedResults = []
       results.forEach(r => Array.prototype.push.apply(flattenedResults, r))
-      console.log(
-        `Converted ${flattenedResults.length} icons in ${Date.now() - start}ms`
-      )
       cb(null, flattenedResults)
     })
     .catch(cb)

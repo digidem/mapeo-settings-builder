@@ -12,7 +12,7 @@ var run = require('run-parallel')
 module.exports = function buildSVGSprite (dir, cb) {
   var filepaths = glob.sync('*.svg', { cwd: dir })
   if (!filepaths.length) {
-    console.warn('Warning: no icons found in folder %s', dir)
+    console.warn('Warning: no icons found in folder', dir)
     return cb()
   }
 
