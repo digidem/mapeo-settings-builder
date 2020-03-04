@@ -64,6 +64,7 @@ Mapeo Presets Builder expects the following file structure in the current direct
 │   └── ...
 ├── defaults.json
 ├── imagery.json
+├── metadata.json
 └── style.css
 ```
 
@@ -73,6 +74,10 @@ Where:
 - `style.css` is custom css to override iD css.
 - `icons` is a folder of svg images to build a sprite for preset icons
 - `categories`, `fields`, `presets`, `defaults.json` see [iD presets](https://github.com/openstreetmap/iD/tree/master/data/presets)
+- `metadata.json` contains optional properties:
+  - `projectKey` is a 32 byte (256-bit) random number encoded as a `hex` string (numbers 0-9 and lowercase letters a-f)
+  - `name` is a human-readable name of these presets (written from `package.json` if it does not already exist)
+  - `version` is the version number of the presets (written from `package.json` if it does not already exist)
 
 ### Options
 
