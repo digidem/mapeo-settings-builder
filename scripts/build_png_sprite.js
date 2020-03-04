@@ -11,7 +11,11 @@ function createResizeTask (filepath) {
     fs.readFile(filepath, function (err, buf) {
       if (err) return cb(err)
       resizeSvg(buf, 100, function (err, resizedSvg) {
-        if (err) return cb(new Error('Error trying to parse ' + filepath + '\n' + err.message))
+        if (err) {
+          return cb(
+            new Error('Error trying to parse ' + filepath + '\n' + err.message)
+          )
+        }
         cb(null, {
           svg: Buffer.from(resizedSvg),
           id: path.basename(filepath).replace('.svg', '')
@@ -25,9 +29,12 @@ module.exports = function buildPNGSprite (dir, cb) {
   const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 
-  parallel(svgFiles.map(function (file) {
-    return createResizeTask(path.join(dir, file))
-  }), done)
+  parallel(
+    svgFiles.map(function (file) {
+      return createResizeTask(path.join(dir, file))
+    }),
+    done
+  )
 
   function done (err, imgs) {
     if (err) return cb(err)
@@ -38,25 +45,31 @@ module.exports = function buildPNGSprite (dir, cb) {
 
     // Pass `true` in the layout parameter to generate a data layout
     // suitable for exporting to a JSON sprite manifest file.
-    spritezero.generateLayout({ imgs: imgs, pixelRatio: 1, format: true }, function (err, dataLayout) {
-      layout = dataLayout
-      done(err)
-    })
+    spritezero.generateLayout(
+      { imgs: imgs, pixelRatio: 1, format: true },
+      function (err, dataLayout) {
+        layout = dataLayout
+        done(err)
+      }
+    )
 
     // Pass `false` in the layout parameter to generate an image layout
     // suitable for exporting to a PNG sprite image file.
-    spritezero.generateLayout({ imgs: imgs, pixelRatio: 1, format: false }, function (err, imageLayout) {
-      if (err) return done(err)
-      spritezero.generateImage(imageLayout, function (err, image) {
-        png = image
-        done(err)
-      })
-    })
+    spritezero.generateLayout(
+      { imgs: imgs, pixelRatio: 1, format: false },
+      function (err, imageLayout) {
+        if (err) return done(err)
+        spritezero.generateImage(imageLayout, function (err, image) {
+          png = image
+          done(err)
+        })
+      }
+    )
 
     function done (err) {
       if (err) errs.push(err)
       if (--pending > 0) return
-      console.log('errors', errs, pending)
+      if (errs.length) console.error('errors', errs)
       cb(errs[0], { png: png, layout: layout })
     }
   }
