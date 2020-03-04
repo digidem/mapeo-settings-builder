@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.11.1](https://github.com/digidem/mapeo-settings-builder/compare/v2.11.0...v2.11.1) (2020-03-04)
+
+
+### Bug Fixes
+
+* cleanup logging ([bab3ce5](https://github.com/digidem/mapeo-settings-builder/commit/bab3ce5a28d6f92bb332eea64a5ea697191d4d6a))
+
 ## [2.11.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.10.0...v2.11.0) (2020-03-04)
 
 
