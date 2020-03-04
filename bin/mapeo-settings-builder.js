@@ -8,6 +8,7 @@ var tar = require('tar-stream')
 var exists = require('fs-exists-sync')
 var jsonschema = require('jsonschema')
 var pump = require('pump')
+var { version } = require('../package.json')
 
 var imagerySchema = require('../schema/imagery.json')
 var log = require('../scripts/log')
@@ -34,6 +35,12 @@ if (VALID_COMMANDS.indexOf(cmd) < 0) {
   console.error('Unknown command %s', cmd)
   process.exit(1)
 }
+
+log(
+  `→ ${log.chalk.gray(
+    `Using version ${log.chalk.white.bold(version)} of mapeo-settings-builder`
+  )}`
+)
 
 var cwd = process.cwd()
 var iconDir = path.join(cwd, 'icons')
@@ -165,7 +172,7 @@ run(
         pack.entry({ name: `icons/${icon.filename}` }, icon.png)
       })
     }
-    pack.entry({ name: 'VERSION' }, require('../package.json').version)
+    pack.entry({ name: 'VERSION' }, version)
     pack.finalize()
     var outputStream = argv.o ? fs.createWriteStream(argv.o) : process.stdout
     pump(pack, outputStream, err => {
