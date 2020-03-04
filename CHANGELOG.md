@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.10.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.9.0...v2.10.0) (2020-03-04)
+
+
+### Features
+
+* 🚀 Speed up sprite generation 40x ([6b43363](https://github.com/digidem/mapeo-settings-builder/commit/6b433637440cf78daa6b8d442c9fde0d3a7850ef))
+* Save settings name and version to metadata ([386da73](https://github.com/digidem/mapeo-settings-builder/commit/386da73af447d58c1c403af38bce3c8a5260e440))
+
 ## [2.9.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.8.0...v2.9.0) (2019-11-12)
 
 
