@@ -38,6 +38,12 @@ var imageryFile = path.join(cwd, 'imagery.json')
 var styleFile = path.join(cwd, 'style.css')
 var layersFile = path.join(cwd, 'layers.json')
 var metadataFile = path.join(cwd, 'metadata.json')
+var pak = {}
+try {
+  pak = JSON.parse(fs.readFileSync(path.join(cwd, 'package.json')))
+} catch (e) {
+  console.error('Could not read package.json from the presets you are trying to build')
+}
 
 var opts = {
   additionalProperties: true
@@ -104,9 +110,17 @@ run([
   if (exists(layersFile)) {
     pack.entry({ name: 'layers.json' }, fs.readFileSync(layersFile))
   }
+  var metadata = {}
   if (exists(metadataFile)) {
-    pack.entry({ name: 'metadata.json' }, fs.readFileSync(metadataFile))
+    try {
+      metadata = JSON.parse(fs.readFileSync(metadataFile))
+    } catch (e) {
+      console.warn('Could not parse metadata.json file:', e)
+    }
   }
+  metadata.name = metadata.name || pak.name
+  metadata.version = metadata.version || pak.version
+  pack.entry({ name: 'metadata.json' }, stringify(metadata))
   if (pngIcons) {
     pngIcons.forEach(icon => {
       pack.entry({ name: `icons/${icon.filename}` }, icon.png)
