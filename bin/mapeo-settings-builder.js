@@ -7,7 +7,6 @@ var presetsBuilder = require('id-presets-builder')
 var tar = require('tar-stream')
 var exists = require('fs-exists-sync')
 var jsonschema = require('jsonschema')
-var chalk = require('chalk')
 var pump = require('pump')
 
 var imagerySchema = require('../schema/imagery.json')
@@ -61,7 +60,11 @@ const wrapWithLog = (msg, fn) => cb => {
     if (err) {
       log.error(err)
     } else {
-      log(`${msg} ${log.symbols.ok} ${chalk.gray(`(${Date.now() - start}ms)`)}`)
+      log(
+        `${log.symbols.ok} ${msg} ${log.chalk.gray(
+          `(${Date.now() - start}ms)`
+        )}`
+      )
     }
     cb(err, result)
   })
@@ -122,8 +125,9 @@ run(
       done(e)
     }
 
-    if (cmd === 'lint')
-      return log(chalk.bold('Presets are valid'), log.symbols.ok)
+    if (cmd === 'lint') {
+      return log(log.chalk.bold(log.symbols.ok + ' Presets are valid'))
+    }
 
     var pack = tar.pack()
     pack.on('error', done)
@@ -168,10 +172,10 @@ run(
       if (err) log.error(`Error writing file ${argv.o}`)
       else {
         log(
-          `${chalk.bold(
-            'Successfully created .mapeosettings file'
-          )} '${chalk.italic(argv.o)}' ${log.symbols.ok} ${chalk.gray(
-            `(${Date.now() - start}ms)`
+          `${log.chalk.bold(
+            log.symbols.ok + ' Successfully created file'
+          )} '${log.chalk.italic(argv.o)}' ${log.chalk.gray(
+            `(total ${Date.now() - start}ms)`
           )}`
         )
       }
