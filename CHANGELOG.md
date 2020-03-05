@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.13.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.12.0...v2.13.0) (2020-03-05)
+
+
+### Features
+
+* Run tasks in series for better reporting of time ([bb90ad8](https://github.com/digidem/mapeo-settings-builder/commit/bb90ad84be7fc3e2e1b43f14beaf1bdedbb4021c))
+
 ## [2.12.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.11.1...v2.12.0) (2020-03-04)
 
 
