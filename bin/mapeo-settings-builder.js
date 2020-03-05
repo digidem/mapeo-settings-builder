@@ -8,10 +8,27 @@ var tar = require('tar-stream')
 var exists = require('fs-exists-sync')
 var jsonschema = require('jsonschema')
 var pump = require('pump')
-var { version } = require('../package.json')
+var updateNotifier = require('update-notifier')
+var pkg = require('../package.json')
+var log = require('../scripts/log')
+var { chalk } = log
+
+const notifier = updateNotifier({
+  pkg,
+  updateCheckInterval: 1000 * 60 * 60, // One hour
+  shouldNotifyInNpmScript: true
+})
+
+if (notifier.update && notifier.update.type !== 'major') {
+  notifier.notify({
+    message: `Update of ${pkg.name} available!
+${chalk.red('v{currentVersion}')} → ${chalk.green('v{latestVersion}')}
+${chalk.yellow("See what's new:")} ${chalk.cyan('https://git.io/JvVVl')}
+Run ${chalk.green(`npm upgrade ${pkg.name}`)} to update`
+  })
+}
 
 var imagerySchema = require('../schema/imagery.json')
-var log = require('../scripts/log')
 
 var argv = require('minimist')(process.argv.slice(2), {
   default: {
@@ -38,7 +55,9 @@ if (VALID_COMMANDS.indexOf(cmd) < 0) {
 
 log(
   `→ ${log.chalk.gray(
-    `Using version ${log.chalk.white.bold(version)} of mapeo-settings-builder`
+    `Using version ${log.chalk.white.bold(
+      pkg.version
+    )} of mapeo-settings-builder`
   )}`
 )
 
@@ -172,7 +191,7 @@ run(
         pack.entry({ name: `icons/${icon.filename}` }, icon.png)
       })
     }
-    pack.entry({ name: 'VERSION' }, version)
+    pack.entry({ name: 'VERSION' }, pkg.version)
     pack.finalize()
     var outputStream = argv.o ? fs.createWriteStream(argv.o) : process.stdout
     pump(pack, outputStream, err => {

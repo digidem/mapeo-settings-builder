@@ -40,4 +40,12 @@ console.log = log
 console.warn = log.warn
 console.error = log.error
 
+// Put things back before the notifier script runs, so we don't mess up the
+// notifier log message
+process.on('beforeExit', () => {
+  console.log = origLog
+  console.warn = warn
+  console.error = error
+})
+
 module.exports = log

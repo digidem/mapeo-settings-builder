@@ -25,6 +25,7 @@
     "svg-to-img": "^2.0.9",
     "tar-stream": "^2.0.1",
     "traverse": "^0.6.6",
+    "update-notifier": "^4.1.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
