@@ -2,7 +2,7 @@
 
 var fs = require('fs')
 var path = require('path')
-var run = require('run-parallel')
+var run = require('run-series')
 var presetsBuilder = require('id-presets-builder')
 var tar = require('tar-stream')
 var exists = require('fs-exists-sync')
