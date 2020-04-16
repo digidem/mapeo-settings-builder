@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.15.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.14.0...v2.15.0) (2020-04-16)
+
+
+### Features
+
+* Add support for helperText property on fields ([474a0d2](https://github.com/digidem/mapeo-settings-builder/commit/474a0d2e5d70ec6592405526dadf526093f8c46c))
+
 ## [2.14.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.13.0...v2.14.0) (2020-03-05)
 
 
