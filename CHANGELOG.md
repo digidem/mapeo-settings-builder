@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.15.0...v3.0.0) (2020-04-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update id-settings-builder to use mapeo schema
+
+### Features
+
+* Update id-settings-builder to use mapeo schema ([3c597cd](https://github.com/digidem/mapeo-settings-builder/commit/3c597cd406704f3b86ff73b834dbb7577b67b268))
+
 ## [2.15.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.14.0...v2.15.0) (2020-04-16)
 
 
