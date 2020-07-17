@@ -16,7 +16,7 @@ function withTextColor (args, chalkColor = chalk.gray) {
 }
 
 function log (...args) {
-  origLog(...args)
+  error(...args)
 }
 
 log.error = function (...args) {
@@ -24,11 +24,11 @@ log.error = function (...args) {
 }
 
 log.warn = function (...args) {
-  warn(...withTextColor([symbols.warn, ...args], chalk.yellow))
+  error(...withTextColor([symbols.warn, ...args], chalk.yellow))
 }
 
 log.gray = function (...args) {
-  origLog(...withTextColor(args))
+  error(...withTextColor(args))
 }
 
 log.chalk = chalk
