@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.1](https://github.com/digidem/mapeo-settings-builder/compare/v3.1.0...v3.1.1) (2020-09-08)
+
+
+### Bug Fixes
+
+* add missing apostrophe to message description for translation ([b266b70](https://github.com/digidem/mapeo-settings-builder/commit/b266b70b2c751ee37f7b6993f399d5f786d90381))
+
 ## [3.1.0](https://github.com/digidem/mapeo-settings-builder/compare/v3.0.0...v3.1.0) (2020-09-08)
 
 
