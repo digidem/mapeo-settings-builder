@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/digidem/mapeo-settings-builder/compare/v3.0.0...v3.1.0) (2020-09-08)
+
+
+### Features
+
+* Add scripts to extract messages and build translations ([#14](https://github.com/digidem/mapeo-settings-builder/issues/14)) ([c53b971](https://github.com/digidem/mapeo-settings-builder/commit/c53b9713cef1c82162644d21376aaf1c17db0742))
+
+
+### Bug Fixes
+
+* log to stdout so log messages are not in piped output ([4385d5f](https://github.com/digidem/mapeo-settings-builder/commit/4385d5f20328bf7fd500e8b108a505718cc52616))
+
 ## [3.0.0](https://github.com/digidem/mapeo-settings-builder/compare/v2.15.0...v3.0.0) (2020-04-17)
 
 
