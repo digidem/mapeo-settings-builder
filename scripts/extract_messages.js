@@ -30,7 +30,7 @@ module.exports = function extractMessages ({ categories, fields, presets }) {
     }
 
     messages[`fields.${id}.helperText`] = {
-      description: `Descriptive text for field '${id}`,
+      description: `Descriptive text for field '${id}'`,
       message: field.helperText || ''
     }
 
