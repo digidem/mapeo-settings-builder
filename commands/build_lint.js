@@ -97,6 +97,25 @@ module.exports = function ({ output, lang }, sourceDir, { lint } = { lint: false
         done(e)
       }
 
+      var metadata = {}
+      if (exists(metadataFile)) {
+        try {
+          metadata = JSON.parse(fs.readFileSync(metadataFile, 'utf8'))
+        } catch (e) {
+          log.error('Could not parse metadata.json file:', e.message)
+          return
+        }
+      }
+
+      if (typeof metadata.projectKey === 'string') {
+        try {
+          validateProjectKey(metadata.projectKey)
+        } catch (e) {
+          log.error(e.message)
+          return
+        }
+      }
+
       if (lint) {
         return log(log.chalk.bold(log.symbols.ok + ' Presets are valid'))
       }
@@ -120,14 +139,6 @@ module.exports = function ({ output, lang }, sourceDir, { lint } = { lint: false
       }
       if (exists(layersFile)) {
         pack.entry({ name: 'layers.json' }, fs.readFileSync(layersFile))
-      }
-      var metadata = {}
-      if (exists(metadataFile)) {
-        try {
-          metadata = JSON.parse(fs.readFileSync(metadataFile, 'utf8'))
-        } catch (e) {
-          log.warn('Could not parse metadata.json file:', e)
-        }
       }
       metadata.name = metadata.name || pak.name
       metadata.version = metadata.version || pak.version
@@ -196,4 +207,21 @@ function validate (filename, instance, schema) {
     }
   })
   return false
+}
+
+function validateProjectKey (key) {
+  if (typeof key !== 'string') {
+    throw new Error('Invalid project key, it must be a string (in metadata.json this means it must be enclosed in quotes ""')
+  }
+  if (key.length !== 64) {
+    throw new Error(`Invalid project key, the project key must be 64 characters long, your key is ${key.length} characters long`)
+  }
+  const matches = [...key.matchAll(/[^0-9a-f]/g)]
+  if (matches.length) {
+    const errors = matches.map(m => `'${m[0]}' at position ${m.index}`)
+    throw new Error(`Invalid project key, the project key must be only use the numbers 0-9 and lowercase letters a-f
+  Your project key includes these invalid characters:
+  ${errors.join('\n  ')}`)
+  }
+  return true
 }
