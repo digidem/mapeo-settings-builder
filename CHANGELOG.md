@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/digidem/mapeo-settings-builder/compare/v3.1.1...v3.2.0) (2020-10-09)
+
+
+### Features
+
+* Add command to generate a project key ([c1de72f](https://github.com/digidem/mapeo-settings-builder/commit/c1de72fba9342da68402e1dd05cbe53d14cc0707))
+
+
+### Bug Fixes
+
+* Validate project key when building config file ([f43bd9b](https://github.com/digidem/mapeo-settings-builder/commit/f43bd9b5978e26606ec064a6e068003cc58a01b7))
+
 ### [3.1.1](https://github.com/digidem/mapeo-settings-builder/compare/v3.1.0...v3.1.1) (2020-09-08)
 
 
