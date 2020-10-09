@@ -2,6 +2,7 @@
 
 var updateNotifier = require('update-notifier')
 var { program } = require('commander')
+var { randomBytes } = require('crypto')
 var pkg = require('../package.json')
 var log = require('../scripts/log')
 var buildLint = require('../commands/build_lint')
@@ -60,6 +61,14 @@ program
   .option('-o, --output <file>', 'Output file (defaults to stdout)')
   .action(opts => {
     extractMessages(opts)
+  })
+
+program
+  .command('generate-key')
+  .description('Generate a random project key')
+  .action(() => {
+    process.stdout.write(randomBytes(32).toString('hex'))
+    process.stderr.write('\n')
   })
 
 program.parse(process.argv)

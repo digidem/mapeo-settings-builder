@@ -33,6 +33,9 @@ mapeo-settings lint
 
 # Build settings tar file and output to stdout
 mapeo-settings build {OPTIONS}
+
+# Generate a project key
+mapeo-settings generate-key
 ```
 
 Mapeo Presets Builder expects the following file structure in the current directory:
