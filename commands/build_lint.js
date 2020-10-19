@@ -216,9 +216,13 @@ function validateProjectKey (key) {
   if (key.length !== 64) {
     throw new Error(`Invalid project key, the project key must be 64 characters long, your key is ${key.length} characters long`)
   }
-  const matches = [...key.matchAll(/[^0-9a-f]/g)]
-  if (matches.length) {
-    const errors = matches.map(m => `'${m[0]}' at position ${m.index}`)
+  const regexp = /[^0-9a-f]/g
+  const errors = []
+  let match
+  while ((match = regexp.exec(key)) !== null) {
+    errors.push(`'${match[0]}' at position ${match.index}`)
+  }
+  if (errors.length) {
     throw new Error(`Invalid project key, the project key must be only use the numbers 0-9 and lowercase letters a-f
   Your project key includes these invalid characters:
   ${errors.join('\n  ')}`)
