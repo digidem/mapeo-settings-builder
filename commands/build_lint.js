@@ -142,6 +142,7 @@ module.exports = function ({ output, lang }, sourceDir, { lint } = { lint: false
       }
       metadata.name = metadata.name || pak.name
       metadata.version = metadata.version || pak.version
+      metadata.syncServer = metadata.syncServer || pak.syncServer
       pack.entry({ name: 'metadata.json' }, stringify(metadata))
       if (pngIcons) {
         pngIcons.forEach(icon => {
