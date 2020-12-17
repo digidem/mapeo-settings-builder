@@ -81,6 +81,7 @@ Where:
   - `projectKey` is a 32 byte (256-bit) random number encoded as a `hex` string (numbers 0-9 and lowercase letters a-f)
   - `name` is a human-readable name of these presets (written from `package.json` if it does not already exist)
   - `version` is the version number of the presets (written from `package.json` if it does not already exist)
+  - `syncServer` is the URL of a mapeo-web server to sync to. (written from `package.json` if it does not already exist)
 
 ### Options
 

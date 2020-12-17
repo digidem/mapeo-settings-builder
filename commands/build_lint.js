@@ -142,6 +142,23 @@ module.exports = function ({ output, lang }, sourceDir, { lint } = { lint: false
       }
       metadata.name = metadata.name || pak.name
       metadata.version = metadata.version || pak.version
+
+      if (metadata.syncServer) {
+        try {
+          const parsed = new URL(metadata.syncServer)
+          if (parsed.protocol !== 'wss') {
+            if (parsed.protocol !== 'ws') {
+              log.error(`Error: syncServer was set to an invalid protocol: ${parsed.protocol}`)
+              return
+            } else {
+              log.warn('syncServer protocol got set to `ws`, did you mean to use `wss` for a secure connection?')
+            }
+          }
+        } catch (e) {
+          log.error('Error parsing syncServer:', e.message)
+        }
+      }
+
       pack.entry({ name: 'metadata.json' }, stringify(metadata))
       if (pngIcons) {
         pngIcons.forEach(icon => {
