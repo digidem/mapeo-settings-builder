@@ -146,8 +146,8 @@ module.exports = function ({ output, lang }, sourceDir, { lint } = { lint: false
       if (metadata.syncServer) {
         try {
           const parsed = new URL(metadata.syncServer)
-          if (parsed.protocol !== 'wss') {
-            if (parsed.protocol !== 'ws') {
+          if (parsed.protocol !== 'wss:') {
+            if (parsed.protocol !== 'ws:') {
               log.error(`Error: syncServer was set to an invalid protocol: ${parsed.protocol}`)
               return
             } else {
