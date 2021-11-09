@@ -1,0 +1,13 @@
+diff --git a/node_modules/svg-to-img/dist/index.js b/node_modules/svg-to-img/dist/index.js
+index c909974..8481504 100644
+--- a/node_modules/svg-to-img/dist/index.js
++++ b/node_modules/svg-to-img/dist/index.js
+@@ -47,7 +47,7 @@ const scheduleBrowserForDestruction = () => {
+             browserState = "closed";
+             await browserInstance.close();
+         }
+-    }, 500);
++    }, 2000);
+ };
+ const convertSvg = async (inputSvg, passedOptions) => {
+     const svg = Buffer.isBuffer(inputSvg) ? inputSvg.toString("utf8") : inputSvg;

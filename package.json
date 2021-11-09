@@ -34,10 +34,13 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
+    "patch-package": "^6.4.7",
     "standard": "^12.0.1"
   },
   "scripts": {
-    "build": "mapeo-settings-builder"
+    "build": "mapeo-settings-builder",
+    "postinstall": "patch-package",
+    "patch-package": "patch-package"
   },
   "repository": {
     "type": "git",
