@@ -22,6 +22,7 @@
     "maki": "^0.5.0",
     "minimist": "^1.2.5",
     "once": "^1.4.0",
+    "patch-package": "^6.4.7",
     "pump": "^3.0.0",
     "run-parallel": "^1.1.9",
     "run-series": "^1.1.8",
@@ -34,7 +35,6 @@
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
-    "patch-package": "^6.4.7",
     "standard": "^12.0.1"
   },
   "scripts": {
