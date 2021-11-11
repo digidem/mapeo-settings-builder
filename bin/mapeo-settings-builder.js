@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var updateNotifier = require('update-notifier')
-var { program } = require('commander')
+var commander, { program } = require('commander')
 var { randomBytes } = require('crypto')
 var pkg = require('../package.json')
 var log = require('../scripts/log')
@@ -44,7 +44,13 @@ program
   .description('Build config from presets in current working dir')
   .option('-o, --output <file>', 'Output file (defaults to stdout)')
   .option('-l, --lang <language-code>', 'Default language of presets', 'en')
-  .option('-t, --timeout <milliseconds>', 'Timeout limit for icon generation process', 2000)
+  .option('-t, --timeout <milliseconds>', 'Timeout limit for icon generation process', function(value) {
+    const parsedValue = parseInt(value, 10);
+    if (isNaN(parsedValue)) {
+      return 2000
+    }
+    return parsedValue;
+  })
   .action((sourceDir, opts) => {
     buildLint(opts, sourceDir || cwd)
   })

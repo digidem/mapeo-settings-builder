@@ -20,7 +20,7 @@ Object.keys(SIZES).forEach(size =>
   SCALES.forEach(scale => outputs.push({ size, scale }))
 )
 
-module.exports = function buildPngIcons (dir, timeout, cb) {
+module.exports = function buildPngIcons (dir, timeout = 2000, cb) {
   const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 
@@ -35,7 +35,7 @@ module.exports = function buildPngIcons (dir, timeout, cb) {
           var png = await svgToImg.from(resizedSvg).toPng({
             width: SIZES[size] * scale,
             height: SIZES[size] * scale,
-            destroyBrowserTimeout: timeout || 2000
+            destroyBrowserTimeout: timeout
           })
           var filename = `${id}-${size}@${scale}x.png`
           return { png, filename }
