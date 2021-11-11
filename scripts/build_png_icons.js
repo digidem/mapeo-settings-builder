@@ -20,7 +20,7 @@ Object.keys(SIZES).forEach(size =>
   SCALES.forEach(scale => outputs.push({ size, scale }))
 )
 
-module.exports = function buildPngIcons (dir, timeout = 2000, cb) {
+module.exports = function buildPngIcons (dir, timeout, cb) {
   const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 
