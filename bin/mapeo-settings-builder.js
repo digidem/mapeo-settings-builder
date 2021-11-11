@@ -44,6 +44,7 @@ program
   .description('Build config from presets in current working dir')
   .option('-o, --output <file>', 'Output file (defaults to stdout)')
   .option('-l, --lang <language-code>', 'Default language of presets', 'en')
+  .option('-t, --timeout <milliseconds>', 'Timeout limit for icon generation process', 2000)
   .action((sourceDir, opts) => {
     buildLint(opts, sourceDir || cwd)
   })
