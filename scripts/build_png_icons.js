@@ -1,7 +1,7 @@
 var fs = require('fs')
 var glob = require('glob')
 var path = require('path')
-var svgToImg = require('svg-to-img')
+var svgToImg = require('@digidem/svg-to-img')
 var { promisify } = require('util')
 
 var readFile = promisify(fs.readFile)
