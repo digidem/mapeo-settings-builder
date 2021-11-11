@@ -34,7 +34,8 @@ module.exports = function buildPngIcons (dir, cb) {
         outputs.map(async ({ size, scale }) => {
           var png = await svgToImg.from(resizedSvg).toPng({
             width: SIZES[size] * scale,
-            height: SIZES[size] * scale
+            height: SIZES[size] * scale,
+            destroyBrowserTimeout: 1500
           })
           var filename = `${id}-${size}@${scale}x.png`
           return { png, filename }
