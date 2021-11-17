@@ -87,6 +87,7 @@ Where:
 
 - `-l, --lang=<langCode>` - the base language of the settings, defaults to `en`.
 - `-o, --output=<filename>` - write the settings tarball to this file, if unspecified prints to stdout.
+- `-t, --timeout=<number>` - timeout limit (in milliseconds) for icon generation process.
 
 ## Contribute
 
