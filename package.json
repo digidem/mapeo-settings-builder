@@ -1,6 +1,6 @@
 {
   "name": "mapeo-settings-builder",
-  "version": "3.3.1",
+  "version": "3.4.0",
   "description": "Builds presets and sprites for the Mapeo Desktop app",
   "main": "index.js",
   "bin": {
