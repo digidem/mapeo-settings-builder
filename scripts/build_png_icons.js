@@ -1,7 +1,7 @@
 var fs = require('fs')
 var glob = require('glob')
 var path = require('path')
-var svgToImg = require('svg-to-img')
+var svgToImg = require('@digidem/svg-to-img')
 var { promisify } = require('util')
 
 var readFile = promisify(fs.readFile)
@@ -20,7 +20,7 @@ Object.keys(SIZES).forEach(size =>
   SCALES.forEach(scale => outputs.push({ size, scale }))
 )
 
-module.exports = function buildPngIcons (dir, cb) {
+module.exports = function buildPngIcons (dir, timeout, cb) {
   const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 
@@ -34,7 +34,8 @@ module.exports = function buildPngIcons (dir, cb) {
         outputs.map(async ({ size, scale }) => {
           var png = await svgToImg.from(resizedSvg).toPng({
             width: SIZES[size] * scale,
-            height: SIZES[size] * scale
+            height: SIZES[size] * scale,
+            destroyBrowserTimeout: timeout
           })
           var filename = `${id}-${size}@${scale}x.png`
           return { png, filename }

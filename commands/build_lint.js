@@ -16,7 +16,7 @@ var checkIcons = require('../scripts/check_icons')
 var pkg = require('../package.json')
 var log = require('../scripts/log')
 
-module.exports = function ({ output, lang }, sourceDir, { lint } = { lint: false }) {
+module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { lint: false }) {
   var iconDir = path.join(sourceDir, 'icons')
   var messagesDir = path.join(sourceDir, 'messages')
   var imageryFile = path.join(sourceDir, 'imagery.json')
@@ -52,7 +52,7 @@ module.exports = function ({ output, lang }, sourceDir, { lint } = { lint: false
       ),
       wrapWithLog(
         'Generated png icons for Mapeo Mobile',
-        buildPNGIcons.bind(null, iconDir)
+        buildPNGIcons.bind(null, iconDir, timeout)
       ),
       wrapWithLog(
         'Generated translations',
