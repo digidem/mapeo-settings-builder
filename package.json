@@ -11,6 +11,7 @@
     "node": ">10"
   },
   "dependencies": {
+    "@digidem/svg-to-img": "^2.1.0",
     "@mapbox/spritezero": "^7.0.1",
     "chalk": "^4.1.0",
     "commander": "^6.1.0",
@@ -27,7 +28,6 @@
     "run-series": "^1.1.8",
     "safe-stable-stringify": "^1.1.1",
     "svg-sprite": "^1.5.0",
-    "@digidem/svg-to-img": "^2.1.0",
     "tar-stream": "^2.1.3",
     "traverse": "^0.6.6",
     "update-notifier": "^4.1.1",
