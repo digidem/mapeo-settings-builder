@@ -34,17 +34,12 @@ module.exports = function extractMessages ({ categories, fields, presets }) {
       message: field.helperText || ''
     }
 
-    if (field.type === 'select_one' || field.type === 'select_multiple') {
-      field.options
-        // Only options in the format { label: string, value: any } can be translated
-        .filter(option => typeof option === 'object' && typeof option.label === 'string')
-        .map((option) => {
-          messages[`fields.${id}.options.${JSON.stringify(option.value)}`] = {
-            description: `Select option for field '${id}' for value '${JSON.stringify(option.value)}'`,
-            message: option.label
-          }
-        })
-    }
+    Object.keys(field.options || {}).forEach((optionValue) => {
+      messages[`fields.${id}.options.${optionValue}`] = {
+        description: `Label for option '${optionValue}' for field '${id}'`,
+        message: field.options[optionValue] || ''
+      }
+    })
   })
 
   Object.keys(presets).forEach((id) => {
