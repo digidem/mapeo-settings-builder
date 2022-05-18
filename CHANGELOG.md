@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.4.1](https://github.com/digidem/mapeo-settings-builder/compare/v3.4.0...v3.4.1) (2022-05-18)
+
+
+### Bug Fixes
+
+* include field options in msgs for translation ([d72a055](https://github.com/digidem/mapeo-settings-builder/commit/d72a0555651b61b8a3a8f6debefdbc440bbaf004))
+
 ## [3.4.0](https://github.com/digidem/mapeo-settings-builder/compare/v3.3.1...v3.4.0) (2021-11-18)
 
 
