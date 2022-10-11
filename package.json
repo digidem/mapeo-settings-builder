@@ -27,7 +27,7 @@
     "run-parallel": "^1.2.0",
     "run-series": "^1.1.9",
     "safe-stable-stringify": "^1.1.1",
-    "svg-sprite": "^1.5.4",
+    "svg-sprite": "^2.0.0",
     "tar-stream": "^2.2.0",
     "traverse": "^0.6.6",
     "update-notifier": "^4.1.1",
