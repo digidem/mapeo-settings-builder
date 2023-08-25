@@ -51,6 +51,7 @@ program
     }
     return parsedValue;
   }, 2000)
+  .option('-p, --presets <path>', 'Custom presets folder path')
   .action((sourceDir, opts) => {
     buildLint(opts, sourceDir || cwd)
   })
