@@ -68,6 +68,16 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
       var pngIcons = results[3]
       var translations = results[4]
 
+      var zip = new yazl.ZipFile()
+
+      const safelyZipBuffer = (buf, name) => {
+        try{
+          zip.addBuffer(buf, name)
+        }catch(e){
+          log.err(`error ziping file ${name}`)
+        }
+      }
+
       if (exists(imageryFile)) {
         try {
           var imagery = fs.readFileSync(imageryFile)
@@ -120,26 +130,23 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
         return log(log.chalk.bold(log.symbols.ok + ' Presets are valid'))
       }
 
-      var zip = new yazl.ZipFile()
-      zip.addBuffer(stringify(presets), 'presets.json')
-      zip.addBuffer(stringify(translations), 'translations.json')
+      safelyZipBuffer(stringify(presets), 'presets.json')
+      safelyZipBuffer(stringify(translations), 'translations.json')
       if (svgSprite) {
-         // pack.entry({ name: 'icons.svg' }, svgSprite)
-        // log.warn(`EL COSO ${Buffer.from(svgSprite)}`)
-        zip.addBuffer(svgSprite, 'icons.svg')
+        safelyZipBuffer(svgSprite, 'icons.svg')
       }
       if (pngSprite) {
-        zip.addBuffer(pngSprite, 'icons.png')
-        zip.addBuffer(JSON.stringify(pngLayout, null, 2), 'icons.json')
+        safelyZipBuffer(pngSprite, 'icons.png')
+        safelyZipBuffer(JSON.stringify(pngLayout, null, 2), 'icons.json')
       }
       if (imagery) {
-        zip.addBuffer(stringify(imagery), 'imagery.json')
+        safelyZipBuffer(stringify(imagery), 'imagery.json')
       }
       if (exists(styleFile)) {
-        zip.addFile(styleFile, 'style.css')
+        safelyZipBuffer(fs.readFileSync(styleFile), 'style.css')
       }
       if (exists(layersFile)) {
-        zip.addFile(layersFile)
+        safelyZipBuffer(fs.readFileSync(layersFile), 'layers.json')
       }
       metadata.name = metadata.name || pak.name
       metadata.version = metadata.version || pak.version
@@ -159,13 +166,13 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
           log.error('Error parsing syncServer:', e.message)
         }
       }
-      zip.addBuffer(stringify(metadata), 'metadata.json')
+      safelyZipBuffer(stringify(metadata), 'metadata.json')
       if (pngIcons) {
         pngIcons.forEach(icon => {
-          zip.addBuffer(icon.png, `icons/${icon.filename}`)
+          safelyZipBuffer(icon.png, `icons/${icon.filename}`)
         })
       }
-      zip.addBuffer(Buffer.from(pkg.version), 'VERSION')
+      safelyZipBuffer(pkg.version, 'VERSION')
       var outputStream = output ? fs.createWriteStream(output) : process.stdout
       zip.end()
       pump(zip.outputStream, outputStream, err => {
