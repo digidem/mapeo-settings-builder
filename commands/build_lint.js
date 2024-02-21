@@ -2,7 +2,6 @@ var fs = require('fs')
 var path = require('path')
 var run = require('run-series')
 var presetsBuilder = require('id-presets-builder')
-var tar = require('tar-stream')
 var yazl = require('yazl')
 var exists = require('fs-exists-sync')
 var jsonschema = require('jsonschema')
@@ -121,35 +120,26 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
         return log(log.chalk.bold(log.symbols.ok + ' Presets are valid'))
       }
 
-      // var pack = tar.pack()
       var zip = new yazl.ZipFile()
-
-      // pack.on('error', done)
       zip.addBuffer(jsonToBuffer(presets), 'presets.json')
       zip.addBuffer(jsonToBuffer(translations), 'translations.json')
-      // pack.entry({ name: 'presets.json' }, stringify(presets))
-      // pack.entry({ name: 'translations.json' }, stringify(translations))
-      if (svgSprite) {
+      //if (svgSprite) {
         // pack.entry({ name: 'icons.svg' }, svgSprite)
-        zip.Buffer(Buffer.from(svgSprite), 'icons.svg')
-      }
+       // zip.Buffer(Buffer.from(svgSprite), 'icons.svg')
+      //}
       if (pngSprite) {
         zip.addBuffer(Buffer.from(pngSprite), 'icons.svg')
-        zip.addBuffer(Buffer.from(JSON.stringify(pngLayout, null, 2)), 'icons.svg')
-        // pack.entry({ name: 'icons.png' }, pngSprite)
-        // pack.entry({ name: 'icons.json' }, JSON.stringify(pngLayout, null, 2))
+        zip.addBuffer(Buffer.from(JSON.stringify(pngLayout, null, 2)), 'icons.json')
       }
       if (imagery) {
         zip.addBuffer(jsonToBuffer(imagery), 'imagery.json')
-        // pack.entry({ name: 'imagery.json' }, imagery)
       }
-      if (exists(styleFile)) {
+      //if (exists(styleFile)) {
         // pack.entry({ name: 'style.css' }, fs.readFileSync(styleFile))
-        zip.addFile(styleFile)
-      }
+       // zip.addFile(styleFile)
+      //}
       if (exists(layersFile)) {
         zip.addFile(layersFile)
-        // pack.entry({ name: 'layers.json' }, fs.readFileSync(layersFile))
       }
       metadata.name = metadata.name || pak.name
       metadata.version = metadata.version || pak.version
@@ -170,30 +160,26 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
         }
       }
       zip.addBuffer(jsonToBuffer(metadata), 'metadata.json')
-      // pack.entry({ name: 'metadata.json' }, stringify(metadata))
       if (pngIcons) {
         pngIcons.forEach(icon => {
-          // pack.entry({ name: `icons/${icon.filename}` }, icon.png)
           zip.addBuffer(icon.png, `icons/${icon.filename}`)
         })
       }
       zip.addBuffer(Buffer.from(pkg.version), 'VERSION')
-      // pack.entry({ name: 'VERSION' }, pkg.version)
-      // pack.finalize()
       var outputStream = output ? fs.createWriteStream(output) : process.stdout
-      zip.outputStream.pipe(outputStream)
-      // pump(pack, outputStream, err => {
-      //   if (err) log.error(`Error writing file ${output}`)
-      //   else {
-      //     log(
-      //       `${log.chalk.bold(
-      //         log.symbols.ok + ' Successfully created file'
-      //       )} '${log.chalk.italic(output)}' ${log.chalk.gray(
-      //         `(total ${Date.now() - start}ms)`
-      //       )}`
-      //     )
-      //   }
-      // })
+      zip.end()
+      pump(zip.outputStream, outputStream, err => {
+         if (err) log.error(`Error writing file ${output}`)
+         else {
+           log(
+             `${log.chalk.bold(
+               log.symbols.ok + ' Successfully created file'
+             )} '${log.chalk.italic(output)}' ${log.chalk.gray(
+               `(total ${Date.now() - start}ms)`
+             )}`
+           )
+         }
+       })
     }
   )
 }
@@ -221,7 +207,7 @@ function stringify (o) {
 }
 
 function jsonToBuffer(o){
-  Buffer.from(stringify(o))
+  return Buffer.from(stringify(o))
 }
 
 function done (err) {
