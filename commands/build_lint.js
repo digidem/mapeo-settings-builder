@@ -122,23 +122,23 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
       }
 
       var zip = new yazl.ZipFile()
-      zip.addBuffer(jsonToBuffer(presets), 'presets.json')
-      zip.addBuffer(jsonToBuffer(translations), 'translations.json')
-      //if (svgSprite) {
-        // pack.entry({ name: 'icons.svg' }, svgSprite)
-       // zip.Buffer(Buffer.from(svgSprite), 'icons.svg')
-      //}
+      zip.addBuffer(stringify(presets), 'presets.json')
+      zip.addBuffer(stringify(translations), 'translations.json')
+      if (svgSprite) {
+         // pack.entry({ name: 'icons.svg' }, svgSprite)
+        // log.warn(`EL COSO ${Buffer.from(svgSprite)}`)
+        zip.addBuffer(svgSprite, 'icons.svg')
+      }
       if (pngSprite) {
-        zip.addBuffer(Buffer.from(pngSprite), 'icons.svg')
-        zip.addBuffer(Buffer.from(JSON.stringify(pngLayout, null, 2)), 'icons.json')
+        zip.addBuffer(pngSprite, 'icons.png')
+        zip.addBuffer(JSON.stringify(pngLayout, null, 2), 'icons.json')
       }
       if (imagery) {
-        zip.addBuffer(jsonToBuffer(imagery), 'imagery.json')
+        zip.addBuffer(stringify(imagery), 'imagery.json')
       }
-      //if (exists(styleFile)) {
-        // pack.entry({ name: 'style.css' }, fs.readFileSync(styleFile))
-       // zip.addFile(styleFile)
-      //}
+      if (exists(styleFile)) {
+        zip.addFile(styleFile, 'style.css')
+      }
       if (exists(layersFile)) {
         zip.addFile(layersFile)
       }
@@ -160,7 +160,7 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
           log.error('Error parsing syncServer:', e.message)
         }
       }
-      zip.addBuffer(jsonToBuffer(metadata), 'metadata.json')
+      zip.addBuffer(stringify(metadata), 'metadata.json')
       if (pngIcons) {
         pngIcons.forEach(icon => {
           zip.addBuffer(icon.png, `icons/${icon.filename}`)
@@ -205,10 +205,6 @@ function wrapWithLog (msg, fn) {
 
 function stringify (o) {
   return JSON.stringify(o, null, 4)
-}
-
-function jsonToBuffer(o){
-  return Buffer.from(stringify(o))
 }
 
 function done (err) {
