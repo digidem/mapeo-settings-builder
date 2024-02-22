@@ -70,7 +70,10 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
 
       var zip = new yazl.ZipFile()
 
-      const safelyZipBuffer = (buf, name) => {
+      const safelyZipBuffer = (bufOrString, name) => {
+        const buf = typeof bufOrString === 'string'
+          ? Buffer.from(bufOrString)
+          : bufOrString
         try{
           zip.addBuffer(buf, name)
         }catch(e){
