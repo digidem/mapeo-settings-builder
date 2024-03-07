@@ -77,7 +77,7 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
         try{
           zip.addBuffer(buf, name)
         }catch(e){
-          log.err(`error ziping file ${name}`)
+          throw new Error(`error zipping file ${name} with error ${e.message}`)
         }
       }
 
