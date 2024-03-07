@@ -2,7 +2,7 @@ var fs = require('fs')
 var path = require('path')
 var run = require('run-series')
 var presetsBuilder = require('id-presets-builder')
-var tar = require('tar-stream')
+var yazl = require('yazl')
 var exists = require('fs-exists-sync')
 var jsonschema = require('jsonschema')
 var pump = require('pump')
@@ -68,6 +68,19 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
       var pngIcons = results[3]
       var translations = results[4]
 
+      var zip = new yazl.ZipFile()
+
+      const safelyZipBuffer = (bufOrString, name) => {
+        const buf = typeof bufOrString === 'string'
+          ? Buffer.from(bufOrString)
+          : bufOrString
+        try{
+          zip.addBuffer(buf, name)
+        }catch(e){
+          throw new Error(`error zipping file ${name} with error ${e.message}`)
+        }
+      }
+
       if (exists(imageryFile)) {
         try {
           var imagery = fs.readFileSync(imageryFile)
@@ -120,25 +133,23 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
         return log(log.chalk.bold(log.symbols.ok + ' Presets are valid'))
       }
 
-      var pack = tar.pack()
-      pack.on('error', done)
-      pack.entry({ name: 'presets.json' }, stringify(presets))
-      pack.entry({ name: 'translations.json' }, stringify(translations))
+      safelyZipBuffer(stringify(presets), 'presets.json')
+      safelyZipBuffer(stringify(translations), 'translations.json')
       if (svgSprite) {
-        pack.entry({ name: 'icons.svg' }, svgSprite)
+        safelyZipBuffer(svgSprite, 'icons.svg')
       }
       if (pngSprite) {
-        pack.entry({ name: 'icons.png' }, pngSprite)
-        pack.entry({ name: 'icons.json' }, JSON.stringify(pngLayout, null, 2))
+        safelyZipBuffer(pngSprite, 'icons.png')
+        safelyZipBuffer(JSON.stringify(pngLayout, null, 2), 'icons.json')
       }
       if (imagery) {
-        pack.entry({ name: 'imagery.json' }, imagery)
+        safelyZipBuffer(stringify(imagery), 'imagery.json')
       }
       if (exists(styleFile)) {
-        pack.entry({ name: 'style.css' }, fs.readFileSync(styleFile))
+        safelyZipBuffer(fs.readFileSync(styleFile), 'style.css')
       }
       if (exists(layersFile)) {
-        pack.entry({ name: 'layers.json' }, fs.readFileSync(layersFile))
+        safelyZipBuffer(fs.readFileSync(layersFile), 'layers.json')
       }
       metadata.name = metadata.name || pak.name
       metadata.version = metadata.version || pak.version
@@ -158,28 +169,27 @@ module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { li
           log.error('Error parsing syncServer:', e.message)
         }
       }
-
-      pack.entry({ name: 'metadata.json' }, stringify(metadata))
+      safelyZipBuffer(stringify(metadata), 'metadata.json')
       if (pngIcons) {
         pngIcons.forEach(icon => {
-          pack.entry({ name: `icons/${icon.filename}` }, icon.png)
+          safelyZipBuffer(icon.png, `icons/${icon.filename}`)
         })
       }
-      pack.entry({ name: 'VERSION' }, pkg.version)
-      pack.finalize()
+      safelyZipBuffer(pkg.version, 'VERSION')
       var outputStream = output ? fs.createWriteStream(output) : process.stdout
-      pump(pack, outputStream, err => {
-        if (err) log.error(`Error writing file ${output}`)
-        else {
-          log(
-            `${log.chalk.bold(
-              log.symbols.ok + ' Successfully created file'
-            )} '${log.chalk.italic(output)}' ${log.chalk.gray(
-              `(total ${Date.now() - start}ms)`
-            )}`
-          )
-        }
-      })
+      zip.end()
+      pump(zip.outputStream, outputStream, err => {
+         if (err) log.error(`Error writing file ${output}`)
+         else {
+           log(
+             `${log.chalk.bold(
+               log.symbols.ok + ' Successfully created file'
+             )} '${log.chalk.italic(output)}' ${log.chalk.gray(
+               `(total ${Date.now() - start}ms)`
+             )}`
+           )
+         }
+       })
     }
   )
 }
