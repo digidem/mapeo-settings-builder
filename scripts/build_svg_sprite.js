@@ -1,15 +1,15 @@
-var SVGSpriter = require('svg-sprite')
-var glob = require('glob')
-var fs = require('fs')
-var path = require('path')
-var run = require('run-parallel')
+import SVGSpriter from 'svg-sprite'
+import glob from 'glob'
+import fs from 'fs'
+import path from 'path'
+import run from 'run-parallel'
 
 /**
  * Searches `dir` for svg files and returns a css file and png sprite.
  * @param {string}   dir Directory to search for svgs
  * @param {Function} cb  cb(error, svg<buffer>)
  */
-module.exports = function buildSVGSprite (dir, cb) {
+export default function buildSVGSprite (dir, cb) {
   var filepaths = glob.sync('*.svg', { cwd: dir })
   if (!filepaths.length) {
     console.warn('Warning: no icons found in folder', dir)

@@ -1,12 +1,14 @@
 #!/usr/bin/env node
 
-var updateNotifier = require('update-notifier')
-var { program, CommanderError } = require('commander')
-var { randomBytes } = require('crypto')
-var pkg = require('../package.json')
-var log = require('../scripts/log')
-var buildLint = require('../commands/build_lint')
-var extractMessages = require('../commands/extract_messages')
+import updateNotifier from 'update-notifier'
+import { program, CommanderError } from 'commander'
+import { randomBytes } from 'crypto'
+import log from '../scripts/log.js'
+import buildLint from '../commands/build_lint.js'
+import extractMessages from '../commands/extract_messages.js'
+import fs from 'fs'
+import path from 'path'
+const pkg = JSON.parse(fs.readFileSync(path.resolve('package.json')))
 
 var { chalk } = log
 

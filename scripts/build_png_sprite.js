@@ -1,10 +1,10 @@
-var spritezero = require('@mapbox/spritezero')
-var fs = require('fs')
-var glob = require('glob')
-var path = require('path')
-var parallel = require('run-parallel')
+import spritezero from '@mapbox/spritezero'
+import fs from 'fs'
+import glob from 'glob'
+import path from 'path'
+import parallel from 'run-parallel'
 
-var resizeSvg = require('./resize_svg')
+import resizeSvg from './resize_svg.js'
 
 function createResizeTask (filepath) {
   return function (cb) {
@@ -25,7 +25,7 @@ function createResizeTask (filepath) {
   }
 }
 
-module.exports = function buildPNGSprite (dir, cb) {
+export default function buildPNGSprite (dir, cb) {
   const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 

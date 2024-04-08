@@ -3,6 +3,7 @@
   "version": "4.0.0",
   "description": "Builds presets and sprites for the Mapeo Desktop app",
   "main": "index.js",
+  "type": "module",
   "bin": {
     "mapeo-settings": "bin/mapeo-settings-builder.js",
     "mapeo-settings-builder": "bin/mapeo-settings-builder.js"

@@ -1,10 +1,10 @@
-var fs = require('fs')
-var presetsBuilder = require('id-presets-builder')
-var stringify = require('safe-stable-stringify').default
-var extractMessages = require('../scripts/extract_messages')
-var log = require('../scripts/log')
+import fs from 'fs'
+import presetsBuilder from 'id-presets-builder'
+import stringify from 'safe-stable-stringify'
+import extractMessages from '../scripts/extract_messages.js'
+import log from '../scripts/log.js'
 
-module.exports = function ({ output }, sourceDir) {
+export default function({ output }, sourceDir) {
   const start = Date.now()
   presetsBuilder.generatePresets(sourceDir, { additionalProperties: true }, (err, presets) => {
     if (err) process.exit(1)
