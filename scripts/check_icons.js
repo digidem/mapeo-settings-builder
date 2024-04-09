@@ -1,5 +1,7 @@
 import glob from 'glob'
 import path from 'path'
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 export default function checkIcons (presets, iconDir) {
   var makiIconPath = path.dirname(require.resolve('maki/src/aerialway-12.svg'))

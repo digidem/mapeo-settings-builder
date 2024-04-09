@@ -14,8 +14,15 @@ import buildTranslations from '../scripts/build_translations.js'
 import checkIcons from '../scripts/check_icons.js'
 import log from '../scripts/log.js'
 
-const pkg = JSON.parse(fs.readFileSync(path.resolve('package.json')))
-const imagerySchema = JSON.parse(fs.readFileSync(path.resolve('schema/imagery.json')))
+const pkg = JSON.parse(
+  fs.readFileSync(
+    new URL('../package.json', import.meta.url)
+  ))
+
+const imagerySchema = JSON.parse(
+  fs.readFileSync(
+    new URL('../schema/imagery.json', import.meta.url)
+  ))
 
 export default function buildLint({ output, lang, timeout }, sourceDir, { lint } = { lint: false }) {
   var iconDir = path.join(sourceDir, 'icons')

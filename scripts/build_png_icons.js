@@ -5,7 +5,8 @@ import svgToImg from '@digidem/svg-to-img'
 import { promisify } from 'util'
 
 var readFile = promisify(fs.readFile)
-import resizeSvg from './resize_svg.js'
+import { default as resizeSvgCB } from './resize_svg.js'
+const resizeSvg = promisify(resizeSvgCB)
 
 const SIZES = {
   small: 15,

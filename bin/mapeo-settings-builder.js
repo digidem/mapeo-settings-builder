@@ -7,8 +7,11 @@ import log from '../scripts/log.js'
 import buildLint from '../commands/build_lint.js'
 import extractMessages from '../commands/extract_messages.js'
 import fs from 'fs'
-import path from 'path'
-const pkg = JSON.parse(fs.readFileSync(path.resolve('package.json')))
+const pkg = JSON.parse(
+  fs.readFileSync(
+    new URL('../package.json', import.meta.url)
+  )
+)
 
 var { chalk } = log
 
