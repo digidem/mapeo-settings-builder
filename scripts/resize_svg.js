@@ -1,5 +1,5 @@
-const xml2js = require('xml2js')
-const traverse = require('traverse')
+import xml2js from 'xml2js'
+import traverse from 'traverse'
 
 const parser = new xml2js.Parser({
   strict: false,
@@ -10,7 +10,7 @@ const builder = new xml2js.Builder({
   cdata: true
 })
 
-module.exports = function (svg, size, cb) {
+export default function (svg, size, cb) {
   if (Buffer.isBuffer(svg)) {
     svg = svg.toString()
   } else if (typeof svg !== 'string') {

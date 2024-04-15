@@ -1,7 +1,9 @@
-var glob = require('glob')
-var path = require('path')
+import glob from 'glob'
+import path from 'path'
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
-module.exports = function checkIcons (presets, iconDir) {
+export default function checkIcons (presets, iconDir) {
   var makiIconPath = path.dirname(require.resolve('maki/src/aerialway-12.svg'))
   var makiIcons = glob.sync('*-12.svg', { cwd: makiIconPath }).map(filename => {
     return filename.replace('-12.svg', '')
