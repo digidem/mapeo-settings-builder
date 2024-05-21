@@ -19,7 +19,7 @@
     "flat": "^5.0.2",
     "fs-exists-sync": "^0.1.0",
     "glob": "^7.1.6",
-    "id-presets-builder": "^3.0.0",
+    "id-presets-builder": "^3.0.1",
     "jsonschema": "^1.4.1",
     "maki": "^0.5.0",
     "minimist": "^1.2.6",
