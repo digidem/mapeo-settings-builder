@@ -6,7 +6,7 @@
  * @returns {object} Translatable messages, keys are message id, and each
  * message has a description and the message to be translated
  */
-module.exports = function extractMessages ({ categories, fields, presets }) {
+export default function extractMessages ({ categories, fields, presets }) {
   var messages = {}
 
   // TODO: Check category, preset and field ids for '.' which will cause

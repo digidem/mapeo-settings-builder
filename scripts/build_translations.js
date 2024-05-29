@@ -1,10 +1,10 @@
-var unflatten = require('flat').unflatten
-var fs = require('fs')
-var path = require('path')
-var glob = require('glob')
-var once = require('once')
+import flat from 'flat'
+import fs from 'fs'
+import path from 'path'
+import glob from 'glob'
+import once from 'once'
 
-module.exports = function buildTranslations (dir, cb) {
+export default function buildTranslations (dir, cb) {
   cb = once(cb)
   glob('*.json', { cwd: dir }, (err, matches) => {
     if (err) return cb(err)
@@ -63,7 +63,8 @@ function convertMessagesToTranslations (messages) {
     messagesFlat[messageId] = messages[messageId].message
   })
   // Turn messages into a nested object such that iD Editor will understand it
-  const translations = unflatten(messagesFlat, { object: true })
+  const translations = flat.unflatten(messagesFlat, { object: true })
+
   translations.categories = translations.categories || {}
   return translations
 }

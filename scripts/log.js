@@ -1,5 +1,5 @@
-var chalk = require('chalk')
-var process = require('process')
+import chalk from 'chalk'
+import process from 'process'
 
 var isWin = process.platform === 'win32'
 
@@ -48,4 +48,4 @@ process.on('beforeExit', () => {
   console.error = error
 })
 
-module.exports = log
+export default log = log

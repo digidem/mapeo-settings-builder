@@ -1,11 +1,12 @@
-var fs = require('fs')
-var glob = require('glob')
-var path = require('path')
-var svgToImg = require('@digidem/svg-to-img')
-var { promisify } = require('util')
+import fs from 'fs'
+import glob from 'glob'
+import path from 'path'
+import svgToImg from '@digidem/svg-to-img'
+import { promisify } from 'util'
 
 var readFile = promisify(fs.readFile)
-var resizeSvg = promisify(require('./resize_svg'))
+import { default as resizeSvgCB } from './resize_svg.js'
+const resizeSvg = promisify(resizeSvgCB)
 
 const SIZES = {
   small: 15,
@@ -20,7 +21,7 @@ Object.keys(SIZES).forEach(size =>
   SCALES.forEach(scale => outputs.push({ size, scale }))
 )
 
-module.exports = function buildPngIcons (dir, timeout, cb) {
+export default function buildPngIcons (dir, timeout, cb) {
   const svgFiles = glob.sync('*-100px.svg', { cwd: dir })
   if (!svgFiles || svgFiles.length === 0) return cb(null, {})
 

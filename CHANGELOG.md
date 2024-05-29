@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/digidem/mapeo-settings-builder/compare/v5.0.0...v5.0.1) (2024-05-22)
+
+### [4.0.0](https://github.com/digidem/mapeo-settings-builder/compare/v3.4.1...v4.0.0) (2022-05-18)
+
+### ⚠ BREAKING CHANGES
+
+* move to es modules, update id-preset-builder ([2680b00](https://github.com/digidem/mapeo-settings-builder/commit/2680b00709ec5b83a6c2ca8ac0454468ff77a2f9))
+
+
+### [4.0.0](https://github.com/digidem/mapeo-settings-builder/compare/v3.4.1...v4.0.0) (2022-05-18)
+
+### ⚠ BREAKING CHANGES
+
+* switch to zip file format instead of tarball ([#51](https://github.com/digidem/mapeo-settings-builder/pull/51))
+
 ### [3.4.1](https://github.com/digidem/mapeo-settings-builder/compare/v3.4.0...v3.4.1) (2022-05-18)
 
 

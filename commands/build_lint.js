@@ -1,22 +1,30 @@
-var fs = require('fs')
-var path = require('path')
-var run = require('run-series')
-var presetsBuilder = require('id-presets-builder')
-var yazl = require('yazl')
-var exists = require('fs-exists-sync')
-var jsonschema = require('jsonschema')
-var pump = require('pump')
+import fs from 'fs'
+import path from 'path'
+import run from 'run-series'
+import presetsBuilder from 'id-presets-builder'
+import yazl from 'yazl'
+import exists from 'fs-exists-sync'
+import jsonschema from 'jsonschema'
+import pump from 'pump'
 
-var imagerySchema = require('../schema/imagery.json')
-var buildSVGSprite = require('../scripts/build_svg_sprite')
-var buildPNGSprite = require('../scripts/build_png_sprite')
-var buildPNGIcons = require('../scripts/build_png_icons')
-var buildTranslations = require('../scripts/build_translations')
-var checkIcons = require('../scripts/check_icons')
-var pkg = require('../package.json')
-var log = require('../scripts/log')
+import buildSVGSprite from '../scripts/build_svg_sprite.js'
+import buildPNGSprite from '../scripts/build_png_sprite.js'
+import buildPNGIcons from '../scripts/build_png_icons.js'
+import buildTranslations from '../scripts/build_translations.js'
+import checkIcons from '../scripts/check_icons.js'
+import log from '../scripts/log.js'
 
-module.exports = function ({ output, lang, timeout }, sourceDir, { lint } = { lint: false }) {
+const pkg = JSON.parse(
+  fs.readFileSync(
+    new URL('../package.json', import.meta.url)
+  ))
+
+const imagerySchema = JSON.parse(
+  fs.readFileSync(
+    new URL('../schema/imagery.json', import.meta.url)
+  ))
+
+export default function buildLint({ output, lang, timeout }, sourceDir, { lint } = { lint: false }) {
   var iconDir = path.join(sourceDir, 'icons')
   var messagesDir = path.join(sourceDir, 'messages')
   var imageryFile = path.join(sourceDir, 'imagery.json')
