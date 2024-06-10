@@ -47,4 +47,5 @@ jobs:
           npm-token: ${{ secrets.NPM_TOKEN }}
           build-command: |
             npm ci
+            npm link
             npm run build
