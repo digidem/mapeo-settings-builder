@@ -83,4 +83,9 @@ program
     process.stderr.write('\n')
   })
 
-program.parse(process.argv)
+program.exitOverride()
+try{
+  program.parse(process.argv)
+}catch(e){
+}
+
