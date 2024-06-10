@@ -21,7 +21,7 @@ const notifier = updateNotifier({
   shouldNotifyInNpmScript: true
 })
 
-if (notifier.update && notifier.update.type !== 'major') {
+if (notifier.update) {
   notifier.notify({
     message: `Update of ${pkg.name} available!
 ${chalk.red('v{currentVersion}')} → ${chalk.green('v{latestVersion}')}
