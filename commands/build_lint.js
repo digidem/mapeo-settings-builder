@@ -14,7 +14,7 @@ import buildTranslations from '../scripts/build_translations.js'
 import checkIcons from '../scripts/check_icons.js'
 import log from '../scripts/log.js'
 
-const CONFIG_FILE_VERSION = 1
+const CONFIG_FILE_VERSION = "1.0"
 
 const pkg = JSON.parse(
   fs.readFileSync(
