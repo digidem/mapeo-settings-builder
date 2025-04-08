@@ -21,7 +21,7 @@ export default function checkIcons (presets, iconDir) {
     }
   })
   if (undefinedIcons.length) {
-    console.warn('Warning: No icon defined:\n- ' + undefinedIcons.join('\n- ') + '\n')
+    throw new Error('No icon defined:\n- ' + undefinedIcons.join('\n- ') + '\n')
   }
   if (missing.length) {
     throw new Error('Missing icons:\n- ' + missing.join('\n- ') + '\n')
